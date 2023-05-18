@@ -39,9 +39,13 @@ export async function open(req, res, next) {
 }
 
 export async function delShortUrl(req, res, next) {
-    const { id } = req.params
-
+    const { userId } = res.locals.url
+    const { id } = res.locals.session
     try {
+
+        if (id !== userId) return res.sendStatus(401)
+
+        next()
 
     } catch (err) {
         res.status(500).send(err.message)
