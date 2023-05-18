@@ -42,12 +42,13 @@ export async function urlOpen(req, res) {
     try {
 
         let { visitCount } = res.locals.shortExist
+        const { url } = res.locals.shortExist
         await db.query(`
             UPDATE urls SET "visitCount" = $1
             WHERE "shortUrl" = $2
         ;`, [visitCount += 1, shortUrl])
 
-        res.status(200).redirect("/:shortUrl")
+        res.status(200).redirect(url)
     } catch (err) {
         res.status(500).send(err.message)
     }
