@@ -3,8 +3,15 @@ import { db } from "../Database/database.js"
 
 
 export async function validateSignUp(req, res, next) {
-    const { password, confirmPassword } = req.body
+    const { email, password, confirmPassword } = req.body
     try {
+
+        const emailRepeat = await db.query(`
+            SELECT email FROM users
+            WHERE email=$1
+        ;`, [email])
+
+        if (emailRepeat.rowCount !== 0) return res.status(409).send("Email jácadastrado")
 
         if (password !== confirmPassword) return res.status(422).send("Confirmação de senha incorreta")
 

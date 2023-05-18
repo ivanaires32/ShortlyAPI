@@ -13,11 +13,6 @@ export async function urlsShorten(req, res) {
             VALUES ($1, $2, $3)
         ;`, [shortUrl, url, id])
 
-        await db.query(`
-            INSERT INTO ranking ("userId")
-            VALUES ($1)
-        ;`, [id])
-
         const urlId = await db.query(`
             SELECT id FROM urls
             WHERE "shortUrl"=$1
