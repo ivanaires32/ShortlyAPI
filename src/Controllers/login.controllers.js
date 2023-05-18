@@ -22,9 +22,16 @@ export async function signUp(req, res) {
 }
 
 export async function signIn(req, res) {
+    const { email } = req.body
 
     try {
         const token = uuid()
+
+        await db.query(`
+            UPDATE users SET token=$1
+            WHERE email=$2;
+        `, [token, email])
+
         res.status(200).send({ token: token })
 
     } catch (err) {
