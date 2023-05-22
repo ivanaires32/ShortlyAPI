@@ -30,7 +30,7 @@ CREATE TABLE public.urls (
     url text NOT NULL,
     "visitCount" integer DEFAULT 0,
     "userId" integer NOT NULL,
-    "createAt" timestamp without time zone DEFAULT now()
+    "createdAt" timestamp without time zone DEFAULT now()
 );
 
 
@@ -64,7 +64,7 @@ CREATE TABLE public.users (
     email text NOT NULL,
     password text NOT NULL,
     token text,
-    "createAt" timestamp without time zone DEFAULT now()
+    "createdAt" timestamp without time zone DEFAULT now()
 );
 
 
